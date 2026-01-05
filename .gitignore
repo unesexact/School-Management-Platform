@@ -1,0 +1,19 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+
+# Logs
+*.log
+
+# Vendor (later)
+vendor/
+
+# IDE
+.vscode/
+.idea/
+
+# XAMPP temp
+/tmp/
