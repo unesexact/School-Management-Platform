@@ -17,3 +17,6 @@ vendor/
 
 # XAMPP temp
 /tmp/
+
+# Database config (local only)
+config/database.php
