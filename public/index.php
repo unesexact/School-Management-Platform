@@ -19,10 +19,14 @@ if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $auth->login();
 } elseif ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $auth->authenticate();
-} elseif ($uri === '/dashboard') {
-    require_once __DIR__ . '/../app/views/dashboard.php';
 } elseif ($uri === '/logout') {
     $auth->logout();
+} elseif ($uri === '/dashboard/admin') {
+    require_once __DIR__ . '/../app/views/dashboard/admin.php';
+} elseif ($uri === '/dashboard/teacher') {
+    require_once __DIR__ . '/../app/views/dashboard/teacher.php';
+} elseif ($uri === '/dashboard/student') {
+    require_once __DIR__ . '/../app/views/dashboard/student.php';
 } else {
     echo "Page not found!";
 }

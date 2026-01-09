@@ -1,15 +1,12 @@
 <?php
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: /school_management/public/index.php/login");
     exit;
 }
 ?>
 
-<h1>Welcome
+<h1>Admin Dashboard</h1>
+<p>Welcome
     <?= $_SESSION['user_name'] ?>
-</h1>
-<p>Your role:
-    <?= $_SESSION['role'] ?>
 </p>
-
 <a href="/school_management/public/index.php/logout">Logout</a>
