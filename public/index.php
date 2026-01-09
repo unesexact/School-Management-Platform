@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -17,6 +19,11 @@ if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $auth->login();
 } elseif ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $auth->authenticate();
+} elseif ($uri === '/dashboard') {
+    require_once __DIR__ . '/../app/views/dashboard.php';
+} elseif ($uri === '/logout') {
+    $auth->logout();
 } else {
     echo "Page not found!";
 }
+

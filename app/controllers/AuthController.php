@@ -8,12 +8,28 @@ class AuthController
 
     public function authenticate()
     {
-        echo "POST reached!";
-        exit;
+        // Fake login (connect DB later)
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        // TEMP user 
+        if ($email === "admin@test.com" && $password === "1234") {
+            $_SESSION['user_id'] = 1;
+            $_SESSION['user_name'] = "Admin";
+            $_SESSION['role'] = "admin";
+
+            header("Location: /school_management/public/index.php/dashboard");
+            exit;
+        } else {
+            echo "Invalid login";
+        }
     }
 
     public function logout()
     {
-        // Will implement later
+        session_destroy();
+        header("Location: /school_management/public/index.php/login");
+        exit;
     }
+
 }
