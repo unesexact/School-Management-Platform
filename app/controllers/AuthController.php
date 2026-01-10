@@ -17,16 +17,12 @@ class AuthController
         $userModel = new User();
         $user = $userModel->findByEmail($email);
 
-        if (!$user) {
+        // Check if user exists
+        if (!$user || !password_verify($password, $user['password'])) {
             echo "Invalid email or password";
             return;
         }
 
-        // For now (until we hash later)
-        if ($password !== $user['password']) {
-            echo "Invalid email or password";
-            return;
-        }
 
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
