@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../app/controllers/AuthController.php';
 require_once __DIR__ . '/../app/controllers/StudentController.php';
+require_once __DIR__ . '/../app/controllers/TeacherController.php';
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -15,6 +16,7 @@ $uri = str_replace('/school_management/public', '', $uri);
 
 $auth = new AuthController();
 $studentController = new StudentController();
+$teacherController = new TeacherController();
 
 if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $auth->login();
@@ -38,6 +40,14 @@ if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $studentController->create();
 } elseif ($uri === '/students/delete') {
     $studentController->delete();
+}
+
+/* ==== TEACHER CRUD ==== */ elseif ($uri === '/teachers') {
+    $teacherController->index();
+} elseif ($uri === '/teachers/create') {
+    $teacherController->create();
+} elseif ($uri === '/teachers/delete') {
+    $teacherController->delete();
 } else {
     echo "Page not found!";
 }
