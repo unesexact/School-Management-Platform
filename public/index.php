@@ -10,6 +10,7 @@ require_once __DIR__ . '/../app/controllers/StudentController.php';
 require_once __DIR__ . '/../app/controllers/TeacherController.php';
 require_once __DIR__ . '/../app/controllers/SubjectController.php';
 require_once __DIR__ . '/../app/controllers/CourseController.php';
+require_once __DIR__ . '/../app/controllers/EnrollmentController.php';
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -21,6 +22,7 @@ $studentController = new StudentController();
 $teacherController = new TeacherController();
 $subjectController = new SubjectController();
 $courseController = new CourseController();
+$enrollmentController = new EnrollmentController();
 
 if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $auth->login();
@@ -68,6 +70,16 @@ if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $courseController->create();
 } elseif ($uri === '/courses/delete') {
     $courseController->delete();
+}
+
+/* ==== ENROLLMENT ==== */ elseif ($uri === '/enrollments') {
+    $enrollmentController->index();
+} elseif ($uri === '/enrollments/create') {
+    $enrollmentController->create();
+} elseif ($uri === '/enrollments/store') {
+    $enrollmentController->store();
+} elseif ($uri === '/enrollments/delete') {
+    $enrollmentController->delete();
 } else {
     echo "Page not found!";
 }
