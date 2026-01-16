@@ -1,29 +1,27 @@
 <?php
+require_once __DIR__ . '/../core/Auth.php';
 require_once __DIR__ . '/../models/Course.php';
 require_once __DIR__ . '/../models/Subject.php';
 require_once __DIR__ . '/../models/Teacher.php';
 
 class CourseController
 {
-    private function checkAdmin()
-    {
-        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-            header("Location: /school_management/public/login");
-            exit;
-        }
-    }
-
+    // Admin: list courses
     public function index()
     {
-        $this->checkAdmin();
+        Auth::admin();
+
         $courseModel = new Course();
-        $courses = $courseModel->all();
+        $courses = $courseModel->getAll();
+
         require __DIR__ . '/../views/courses/index.php';
     }
 
+    // Admin: create course
     public function create()
     {
-        $this->checkAdmin();
+        Auth::admin();
+
         $subjectModel = new Subject();
         $teacherModel = new Teacher();
 
@@ -32,7 +30,11 @@ class CourseController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $courseModel = new Course();
-            $courseModel->create($_POST['subject_id'], $_POST['teacher_id']);
+            $courseModel->create(
+                $_POST['subject_id'],
+                $_POST['teacher_id']
+            );
+
             header("Location: /school_management/public/courses");
             exit;
         }
@@ -40,11 +42,14 @@ class CourseController
         require __DIR__ . '/../views/courses/create.php';
     }
 
+    // Admin: delete course
     public function delete()
     {
-        $this->checkAdmin();
+        Auth::admin();
+
         $courseModel = new Course();
         $courseModel->delete($_GET['id']);
+
         header("Location: /school_management/public/courses");
         exit;
     }

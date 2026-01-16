@@ -11,6 +11,8 @@ require_once __DIR__ . '/../app/controllers/TeacherController.php';
 require_once __DIR__ . '/../app/controllers/SubjectController.php';
 require_once __DIR__ . '/../app/controllers/CourseController.php';
 require_once __DIR__ . '/../app/controllers/EnrollmentController.php';
+require_once __DIR__ . '/../app/controllers/GradeController.php';
+
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -23,6 +25,7 @@ $teacherController = new TeacherController();
 $subjectController = new SubjectController();
 $courseController = new CourseController();
 $enrollmentController = new EnrollmentController();
+$gradeController = new GradeController();
 
 if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $auth->login();
@@ -33,12 +36,20 @@ if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 /* ===== DASHBOARDS ===== */ elseif ($uri === '/dashboard/admin') {
+    require_once __DIR__ . '/../app/core/Auth.php';
+    Auth::admin();
     require_once __DIR__ . '/../app/views/dashboard/admin.php';
 } elseif ($uri === '/dashboard/teacher') {
+    require_once __DIR__ . '/../app/core/Auth.php';
+    Auth::teacher();
     require_once __DIR__ . '/../app/views/dashboard/teacher.php';
 } elseif ($uri === '/dashboard/student') {
+    require_once __DIR__ . '/../app/core/Auth.php';
+    Auth::student();
     require_once __DIR__ . '/../app/views/dashboard/student.php';
 }
+
+
 
 /* ===== STUDENT CRUD ===== */ elseif ($uri === '/students') {
     $studentController->index();
@@ -80,6 +91,14 @@ if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $enrollmentController->store();
 } elseif ($uri === '/enrollments/delete') {
     $enrollmentController->delete();
+}
+
+/* ==== GRADES ==== */ elseif ($uri === '/grades') {
+    $gradeController->myCourses();
+} elseif ($uri === '/grades/course') {
+    $gradeController->students($_GET['course_id']);
+} elseif ($uri === '/grades/save') {
+    $gradeController->save();
 } else {
     echo "Page not found!";
 }

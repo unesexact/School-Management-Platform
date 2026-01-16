@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/Student.php';
+require_once __DIR__ . '/../core/Auth.php';
 
 class StudentController
 {
@@ -10,24 +11,17 @@ class StudentController
         $this->model = new Student();
     }
 
-    private function checkAdmin()
-    {
-        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-            header("Location: /school_management/public/login");
-            exit;
-        }
-    }
-
     public function index()
     {
-        $this->checkAdmin();
+        Auth::admin();
+
         $students = $this->model->getAll();
         require __DIR__ . '/../views/students/index.php';
     }
 
     public function create()
     {
-        $this->checkAdmin();
+        Auth::admin();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->model->create(
@@ -35,6 +29,7 @@ class StudentController
                 $_POST['email'],
                 $_POST['password']
             );
+
             header("Location: /school_management/public/students");
             exit;
         }
@@ -44,8 +39,10 @@ class StudentController
 
     public function delete()
     {
-        $this->checkAdmin();
+        Auth::admin();
+
         $this->model->delete($_GET['id']);
         header("Location: /school_management/public/students");
+        exit;
     }
 }
