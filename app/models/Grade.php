@@ -34,4 +34,18 @@ class Grade
         ");
         $stmt->execute([$student_id, $course_id, $grade]);
     }
+
+    public function getStudentGrades($student_id)
+    {
+        $stmt = $this->db->prepare("
+        SELECT subjects.name AS subject, grades.grade
+        FROM grades
+        JOIN courses ON grades.course_id = courses.id
+        JOIN subjects ON courses.subject_id = subjects.id
+        WHERE grades.student_id = ?
+    ");
+        $stmt->execute([$student_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

@@ -99,6 +99,10 @@ if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $gradeController->students($_GET['course_id']);
 } elseif ($uri === '/grades/save') {
     $gradeController->save();
+}
+
+/* ==== BULLETIN ==== */ elseif ($uri === '/student/bulletin') {
+    $gradeController->bulletin();
 } else {
     echo "Page not found!";
 }

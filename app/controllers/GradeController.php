@@ -66,4 +66,20 @@ class GradeController
         header("Location: /school_management/public/grades/course?course_id=" . $course_id);
         exit;
     }
+
+    public function bulletin()
+    {
+        Auth::student();
+
+        $student_id = $_SESSION['user']['id'];
+        $grades = $this->gradeModel->getStudentGrades($student_id);
+
+        $generalAverage = null;
+        if (count($grades) > 0) {
+            $sum = array_sum(array_column($grades, 'grade'));
+            $generalAverage = round($sum / count($grades), 2);
+        }
+
+        require __DIR__ . '/../views/grades/bulletin.php';
+    }
 }
