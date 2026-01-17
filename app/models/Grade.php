@@ -48,4 +48,25 @@ class Grade
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getBulletinData($student_id)
+    {
+        $sql = "
+        SELECT 
+            subjects.name AS subject,
+            users.name AS teacher,
+            grades.grade
+        FROM grades
+        JOIN courses ON grades.course_id = courses.id
+        JOIN subjects ON courses.subject_id = subjects.id
+        JOIN users ON courses.teacher_id = users.id
+        WHERE grades.student_id = ?
+    ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$student_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
 }

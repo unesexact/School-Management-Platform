@@ -12,6 +12,7 @@ require_once __DIR__ . '/../app/controllers/SubjectController.php';
 require_once __DIR__ . '/../app/controllers/CourseController.php';
 require_once __DIR__ . '/../app/controllers/EnrollmentController.php';
 require_once __DIR__ . '/../app/controllers/GradeController.php';
+require_once __DIR__ . '/../app/controllers/BulletinController.php';
 
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -26,6 +27,7 @@ $subjectController = new SubjectController();
 $courseController = new CourseController();
 $enrollmentController = new EnrollmentController();
 $gradeController = new GradeController();
+$bulletinController = new BulletinController();
 
 if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $auth->login();
@@ -103,6 +105,10 @@ if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
 /* ==== BULLETIN ==== */ elseif ($uri === '/student/bulletin') {
     $gradeController->bulletin();
+} elseif ($uri === '/bulletin') {
+    $bulletinController->myBulletin();
+} elseif ($uri === '/bulletin/student') {
+    $bulletinController->studentBulletin();
 } else {
     echo "Page not found!";
 }
