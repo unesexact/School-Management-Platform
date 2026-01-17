@@ -13,6 +13,7 @@ require_once __DIR__ . '/../app/controllers/CourseController.php';
 require_once __DIR__ . '/../app/controllers/EnrollmentController.php';
 require_once __DIR__ . '/../app/controllers/GradeController.php';
 require_once __DIR__ . '/../app/controllers/BulletinController.php';
+require_once __DIR__ . '/../app/controllers/TimetableController.php';
 
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -28,6 +29,7 @@ $courseController = new CourseController();
 $enrollmentController = new EnrollmentController();
 $gradeController = new GradeController();
 $bulletinController = new BulletinController();
+$timetableController = new TimetableController();
 
 if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $auth->login();
@@ -109,6 +111,18 @@ if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $bulletinController->myBulletin();
 } elseif ($uri === '/bulletin/student') {
     $bulletinController->studentBulletin();
+}
+
+/* ==== TIMETABLE ==== */ elseif ($uri === '/timetable') {
+    $timetableController->index();
+} elseif ($uri === '/timetable/create') {
+    $timetableController->create();
+} elseif ($uri === '/timetable/delete') {
+    $timetableController->delete();
+} elseif ($uri === '/timetable/student') {
+    $timetableController->student();
+} elseif ($uri === '/timetable/teacher') {
+    $timetableController->teacher();
 } else {
     echo "Page not found!";
 }

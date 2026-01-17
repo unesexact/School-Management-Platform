@@ -54,5 +54,23 @@ class Course
         return $stmt->fetchColumn() > 0;
     }
 
+    public function getForTimetable()
+    {
+        $sql = "
+        SELECT 
+            courses.id,
+            subjects.name AS subject,
+            users.name AS teacher
+        FROM courses
+        JOIN subjects ON subjects.id = courses.subject_id
+        JOIN teachers ON teachers.id = courses.teacher_id
+        JOIN users ON users.id = teachers.id
+        ORDER BY subjects.name
+    ";
+
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 
 }
