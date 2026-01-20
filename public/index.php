@@ -105,13 +105,12 @@ if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $gradeController->save();
 }
 
-/* ==== BULLETIN ==== */ elseif ($uri === '/student/bulletin') {
-    $gradeController->bulletin();
-} elseif ($uri === '/bulletin') {
-    $bulletinController->myBulletin();
-} elseif ($uri === '/bulletin/student') {
-    $bulletinController->studentBulletin();
+/* ==== BULLETINS ==== */ elseif ($uri === '/bulletin') {
+    $bulletinController->show();
+} elseif ($uri === '/bulletins') {
+    $bulletinController->index(); // Admin: list of students
 }
+
 
 /* ==== TIMETABLE ==== */ elseif ($uri === '/timetable') {
     $timetableController->index();

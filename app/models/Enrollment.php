@@ -41,4 +41,16 @@ class Enrollment
         $stmt = $this->db->prepare("DELETE FROM enrollments WHERE student_id=? AND course_id=?");
         $stmt->execute([$student_id, $course_id]);
     }
+
+    public function getByStudent($student_id)
+    {
+        $stmt = $this->db->prepare("
+        SELECT enrollments.*
+        FROM enrollments
+        WHERE enrollments.student_id = ?
+    ");
+        $stmt->execute([$student_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

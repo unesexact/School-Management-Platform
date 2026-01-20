@@ -14,29 +14,29 @@ class BulletinController
         $this->userModel = new User();
     }
 
-    // Student views his own bulletin
-    public function myBulletin()
-    {
-        Auth::student();
-
-        $student_id = $_SESSION['user']['id'];
-        $this->showBulletin($student_id);
-    }
-
-    // Admin views bulletin of any student
-    public function studentBulletin()
+    public function index()
     {
         Auth::admin();
 
-        if (!isset($_GET['id'])) {
-            die("Student ID missing");
-        }
-
-        $this->showBulletin($_GET['id']);
+        $students = $this->userModel->getAllStudents();
+        require __DIR__ . '/../views/bulletin/index.php';
     }
 
-    private function showBulletin($student_id)
+
+    // ONE entry point
+    public function show()
     {
+        Auth::check();
+
+        if ($_SESSION['user']['role'] === 'student') {
+            $student_id = $_SESSION['user']['id'];
+        } else {
+            if (!isset($_GET['student_id'])) {
+                die("Student ID is required");
+            }
+            $student_id = $_GET['student_id'];
+        }
+
         $student = $this->userModel->findById($student_id);
         $grades = $this->gradeModel->getBulletinData($student_id);
 
@@ -48,7 +48,7 @@ class BulletinController
         }
 
         $average = $count > 0 ? round($total / $count, 2) : 0;
-        $status = $average >= 10 ? 'VALIDER' : 'NON VALIDER';
+        $status = $average >= 10 ? 'VALIDÉ' : 'NON VALIDÉ';
 
         require __DIR__ . '/../views/bulletin/show.php';
     }
