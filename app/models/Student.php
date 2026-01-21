@@ -40,4 +40,18 @@ class Student
         $stmt = $this->db->prepare("DELETE FROM users WHERE id = ?");
         return $stmt->execute([$id]);
     }
+
+    public function search($keyword)
+    {
+        $stmt = $this->db->prepare("
+        SELECT students.*, users.name, users.email
+        FROM students
+        JOIN users ON students.id = users.id
+        WHERE users.name LIKE ? OR users.email LIKE ?
+    ");
+        $stmt->execute(["%$keyword%", "%$keyword%"]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }

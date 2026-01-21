@@ -55,13 +55,16 @@ if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 
-/* ===== STUDENT CRUD ===== */ elseif ($uri === '/students') {
+/* ===== STUDENT CRUD + SEARCH ===== */ elseif ($uri === '/students/search') {
+    $studentController->search();
+} elseif ($uri === '/students') {
     $studentController->index();
 } elseif ($uri === '/students/create') {
     $studentController->create();
 } elseif ($uri === '/students/delete') {
     $studentController->delete();
 }
+
 
 /* ==== TEACHER CRUD ==== */ elseif ($uri === '/teachers') {
     $teacherController->index();

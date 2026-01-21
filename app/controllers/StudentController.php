@@ -45,4 +45,22 @@ class StudentController
         header("Location: /school_management/public/students");
         exit;
     }
+
+    public function search()
+    {
+        Auth::admin();
+
+        $studentModel = new Student();
+
+        $keyword = $_GET['q'] ?? '';
+
+        if ($keyword !== '') {
+            $students = $studentModel->search($keyword);
+        } else {
+            $students = $studentModel->getAll();
+        }
+
+        require __DIR__ . '/../views/students/index.php';
+    }
+
 }
