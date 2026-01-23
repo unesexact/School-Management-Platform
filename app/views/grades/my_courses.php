@@ -5,13 +5,19 @@
     <div class="card shadow-sm">
         <div class="card-body">
 
-            <h2 class="mb-4">My Courses</h2>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>My Courses</h2>
+                <a href="/school_management/public/dashboard/teacher" class="btn btn-secondary">
+                    ⬅ Back to Dashboard
+                </a>
+            </div>
 
             <?php if (!empty($courses)): ?>
+
                 <ul class="list-group">
                     <?php foreach ($courses as $c): ?>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <?= htmlspecialchars($c['name']) ?>
+                            <strong><?= htmlspecialchars($c['name']) ?></strong>
                             <a href="/school_management/public/grades/course?course_id=<?= $c['id'] ?>"
                                 class="btn btn-primary btn-sm">
                                 Enter Grades
@@ -19,8 +25,13 @@
                         </li>
                     <?php endforeach; ?>
                 </ul>
+
             <?php else: ?>
-                <div class="alert alert-warning">No courses assigned.</div>
+
+                <div class="alert alert-warning text-center">
+                    No courses assigned to you yet.
+                </div>
+
             <?php endif; ?>
 
         </div>

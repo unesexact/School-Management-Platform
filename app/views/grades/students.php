@@ -5,7 +5,12 @@
     <div class="card shadow-sm">
         <div class="card-body">
 
-            <h2 class="mb-4">Students Grades</h2>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Students Grades</h2>
+                <a href="/school_management/public/grades" class="btn btn-secondary">
+                    ⬅ Back to My Courses
+                </a>
+            </div>
 
             <div class="table-responsive">
                 <table class="table table-bordered table-striped text-center align-middle">
@@ -13,7 +18,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Grade /20</th>
-                            <th>Save</th>
+                            <th width="120">Save</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,7 +27,9 @@
                             <tr>
                                 <form method="POST" action="/school_management/public/grades/save">
 
-                                    <td><?= htmlspecialchars($s['name']) ?></td>
+                                    <td>
+                                        <?= htmlspecialchars($s['name']) ?>
+                                    </td>
 
                                     <td>
                                         <input type="number" name="grade" step="0.1" min="0" max="20"
@@ -34,7 +41,7 @@
 
                                     <td>
                                         <button type="submit" class="btn btn-success btn-sm">
-                                            Save
+                                            💾 Save
                                         </button>
                                     </td>
 

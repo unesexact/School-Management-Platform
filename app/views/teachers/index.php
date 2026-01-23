@@ -7,9 +7,14 @@
 
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2>Teachers</h2>
-                <a href="/school_management/public/teachers/create" class="btn btn-success">
-                    + Add Teacher
-                </a>
+                <div>
+                    <a href="/school_management/public/dashboard/admin" class="btn btn-secondary me-2">
+                        ⬅ Back to Dashboard
+                    </a>
+                    <a href="/school_management/public/teachers/create" class="btn btn-success">
+                        + Add Teacher
+                    </a>
+                </div>
             </div>
 
             <?php if (!empty($teachers)): ?>
