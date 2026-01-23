@@ -1,8 +1,44 @@
-<h2>Add Teacher</h2>
+<link rel="stylesheet" href="/school_management/public/assets/css/bootstrap.min.css">
 
-<form method="POST">
-    <input name="name" placeholder="Name" required><br>
-    <input name="email" type="email" placeholder="Email" required><br>
-    <input name="password" type="password" placeholder="Password" required><br>
-    <button>Add</button>
-</form>
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <h2 class="mb-4 text-center">Add Teacher</h2>
+
+                    <form method="POST">
+
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Enter full name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Enter email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Enter password"
+                                required>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">Add Teacher</button>
+                            <a href="/school_management/public/teachers" class="btn btn-secondary">Cancel</a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

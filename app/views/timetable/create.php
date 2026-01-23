@@ -1,39 +1,61 @@
-<h2>Add Timetable Slot</h2>
+<link rel="stylesheet" href="/school_management/public/assets/css/bootstrap.min.css">
 
-<form method="POST">
-    <label>Course</label><br>
-    <select name="course_id" required>
-        <?php foreach ($courses as $c): ?>
-            <option value="<?= $c['id'] ?>">
-                <?= $c['subject'] ?> -
-                <?= $c['teacher'] ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
+<div class="container mt-5">
 
-    <br><br>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
 
-    <label>Day</label><br>
-    <select name="day">
-        <option>Monday</option>
-        <option>Tuesday</option>
-        <option>Wednesday</option>
-        <option>Thursday</option>
-        <option>Friday</option>
-        <option>Saturday</option>
-    </select>
+            <div class="card shadow-sm">
+                <div class="card-body">
 
-    <br><br>
+                    <h2 class="mb-4 text-center">Add Timetable Slot</h2>
 
-    <label>Start Time</label><br>
-    <input type="time" name="start_time" required>
+                    <form method="POST">
 
-    <br><br>
+                        <div class="mb-3">
+                            <label class="form-label">Course</label>
+                            <select name="course_id" class="form-select" required>
+                                <?php foreach ($courses as $c): ?>
+                                    <option value="<?= $c['id'] ?>">
+                                        <?= $c['subject'] ?> - <?= $c['teacher'] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
-    <label>End Time</label><br>
-    <input type="time" name="end_time" required>
+                        <div class="mb-3">
+                            <label class="form-label">Day</label>
+                            <select name="day" class="form-select">
+                                <option>Monday</option>
+                                <option>Tuesday</option>
+                                <option>Wednesday</option>
+                                <option>Thursday</option>
+                                <option>Friday</option>
+                                <option>Saturday</option>
+                            </select>
+                        </div>
 
-    <br><br>
+                        <div class="mb-3">
+                            <label class="form-label">Start Time</label>
+                            <input type="time" name="start_time" class="form-control" required>
+                        </div>
 
-    <button type="submit">Save</button>
-</form>
+                        <div class="mb-3">
+                            <label class="form-label">End Time</label>
+                            <input type="time" name="end_time" class="form-control" required>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">Save Slot</button>
+                            <a href="/school_management/public/timetable" class="btn btn-secondary">Cancel</a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

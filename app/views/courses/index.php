@@ -1,23 +1,32 @@
-<h2>Courses</h2>
-<a href="/school_management/public/courses/create">Add Course</a>
+<link rel="stylesheet" href="/school_management/public/assets/css/bootstrap.min.css">
 
-<table border="1">
-    <tr>
-        <th>Subject</th>
-        <th>Teacher</th>
-        <th>Action</th>
-    </tr>
-    <?php foreach ($courses as $c): ?>
-        <tr>
-            <td>
-                <?= $c['subject_name'] ?>
-            </td>
-            <td>
-                <?= $c['teacher_name'] ?>
-            </td>
-            <td>
-                <a href="/school_management/public/courses/delete?id=<?= $c['id'] ?>">Delete</a>
-            </td>
-        </tr>
-    <?php endforeach; ?>
-</table>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Courses</h2>
+        <a href="/school_management/public/courses/create" class="btn btn-success">➕ Add Course</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Subject</th>
+                    <th>Teacher</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($courses as $c): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($c['subject_name']) ?></td>
+                        <td><?= htmlspecialchars($c['teacher_name']) ?></td>
+                        <td>
+                            <a href="/school_management/public/courses/delete?id=<?= $c['id'] ?>"
+                                class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
