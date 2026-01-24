@@ -71,6 +71,11 @@ class Course
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
+    public function find($id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM courses WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
 }

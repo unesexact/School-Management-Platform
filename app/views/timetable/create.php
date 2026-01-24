@@ -7,6 +7,13 @@
 
             <div class="card shadow-sm">
                 <div class="card-body">
+                    <?php if (!empty($_SESSION['error'])): ?>
+                        <div class="alert alert-danger text-center">
+                            <?= $_SESSION['error'] ?>
+                        </div>
+                        <?php unset($_SESSION['error']); ?>
+                    <?php endif; ?>
+
 
                     <h2 class="mb-4 text-center">Add Timetable Slot</h2>
 

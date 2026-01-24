@@ -25,16 +25,28 @@ class TimetableController
         Auth::admin();
 
         $courseModel = new Course();
-        // 🔹 Use the new method to get subject + teacher names
         $courses = $courseModel->getForTimetable();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->model->create(
-                $_POST['course_id'],
-                $_POST['day'],
-                $_POST['start_time'],
-                $_POST['end_time']
-            );
+
+            $course_id = $_POST['course_id'];
+            $day = $_POST['day'];
+            $start = $_POST['start_time'];
+            $end = $_POST['end_time'];
+
+            // get teacher id from selected course
+            $course = $courseModel->find($course_id);
+            $teacher_id = $course['teacher_id'];
+
+            // check conflict
+            if ($this->model->teacherHasConflict($teacher_id, $day, $start, $end)) {
+                $_SESSION['error'] = "❌ This teacher already has another course during this time.";
+                header("Location: /school_management/public/timetable/create");
+                exit;
+            }
+
+            // no conflict → insert
+            $this->model->create($course_id, $day, $start, $end);
 
             header("Location: /school_management/public/timetable");
             exit;
@@ -42,6 +54,8 @@ class TimetableController
 
         require __DIR__ . '/../views/timetable/create.php';
     }
+
+
 
     public function delete()
     {

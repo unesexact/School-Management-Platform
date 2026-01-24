@@ -41,6 +41,24 @@ class Timetable
         return $stmt->execute([$course_id, $day, $start, $end]);
     }
 
+    public function teacherHasConflict($teacher_id, $day, $start, $end)
+    {
+        $sql = "
+        SELECT COUNT(*) 
+        FROM timetable t
+        JOIN courses c ON c.id = t.course_id
+        WHERE c.teacher_id = ?
+          AND t.day = ?
+          AND (? < t.end_time AND ? > t.start_time)
+    ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$teacher_id, $day, $start, $end]);
+
+        return $stmt->fetchColumn() > 0;
+    }
+
+
     public function delete($id)
     {
         $stmt = $this->db->prepare("DELETE FROM timetable WHERE id = ?");
