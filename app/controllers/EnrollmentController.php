@@ -40,21 +40,24 @@ class EnrollmentController
     // Admin: Store enrollment
     public function store()
     {
-        Auth::admin(); // 🔐 FIXED
+        Auth::admin();
 
         $student_id = $_POST['student_id'];
         $course_id = $_POST['course_id'];
 
-        $success = $this->enrollmentModel->create($student_id, $course_id);
-
-        if (!$success) {
-            header("Location: /school_management/public/enrollments?error=duplicate");
+        // 🔹 Check if already enrolled
+        if ($this->enrollmentModel->isAlreadyEnrolled($student_id, $course_id)) {
+            header("Location: /school_management/public/enrollments/create?error=duplicate");
             exit;
         }
+
+        // 🔹 Otherwise insert normally
+        $this->enrollmentModel->create($student_id, $course_id);
 
         header("Location: /school_management/public/enrollments");
         exit;
     }
+
 
     // Admin: Delete enrollment
     public function delete()

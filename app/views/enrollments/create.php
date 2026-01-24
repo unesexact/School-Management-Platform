@@ -5,6 +5,13 @@
         <div class="card-body">
             <h2 class="mb-4">Enroll Student</h2>
 
+            <?php if (isset($_GET['error']) && $_GET['error'] === 'duplicate'): ?>
+                <div class="alert alert-danger">
+                    ⚠️ This student is already enrolled in this course.
+                </div>
+            <?php endif; ?>
+
+
             <form method="POST" action="/school_management/public/enrollments/store">
 
                 <div class="mb-3">

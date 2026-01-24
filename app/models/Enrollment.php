@@ -28,13 +28,12 @@ class Enrollment
 
     public function create($student_id, $course_id)
     {
-        try {
-            $stmt = $this->db->prepare("INSERT INTO enrollments (student_id, course_id) VALUES (?, ?)");
-            return $stmt->execute([$student_id, $course_id]);
-        } catch (PDOException $e) {
-            return false; // duplicate
-        }
+        $stmt = $this->db->prepare(
+            "INSERT INTO enrollments (student_id, course_id) VALUES (?, ?)"
+        );
+        return $stmt->execute([$student_id, $course_id]);
     }
+
 
     public function delete($student_id, $course_id)
     {
@@ -51,6 +50,15 @@ class Enrollment
     ");
         $stmt->execute([$student_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function isAlreadyEnrolled($student_id, $course_id)
+    {
+        $stmt = $this->db->prepare(
+            "SELECT COUNT(*) FROM enrollments WHERE student_id = ? AND course_id = ?"
+        );
+        $stmt->execute([$student_id, $course_id]);
+        return $stmt->fetchColumn() > 0;
     }
 
 }
