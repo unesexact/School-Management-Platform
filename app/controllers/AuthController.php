@@ -29,7 +29,10 @@ class AuthController
             return;
         }
 
-        // ✅ STORE SESSION (NO ECHO, NO PRINT)
+        // Regenerate session ID after successful login (prevents session fixation)
+        session_regenerate_id(true);
+
+        // STORE SESSION
         $_SESSION['user'] = [
             'id' => $user['id'],
             'name' => $user['name'],
@@ -37,7 +40,10 @@ class AuthController
             'role' => strtolower($user['role']),
         ];
 
-        // ✅ REDIRECT
+        // Save last activity time
+        $_SESSION['LAST_ACTIVITY'] = time();
+
+        // REDIRECT
         header("Location: /school_management/public/index.php/dashboard/{$_SESSION['user']['role']}");
         exit;
     }

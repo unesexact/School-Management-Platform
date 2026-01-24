@@ -1,4 +1,10 @@
 <?php
+session_set_cookie_params([
+    'httponly' => true,
+    'secure' => false, // put true if you use HTTPS
+    'samesite' => 'Strict'
+]);
+
 session_start();
 
 ini_set('display_errors', 1);
