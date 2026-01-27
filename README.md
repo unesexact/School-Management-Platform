@@ -97,7 +97,7 @@ Main tables:
 
 ## 👨‍💻 Author
 
-Developed by Youexact  
+Developed by Younes Oukessou  
 Academic project – School Management System  
 
 ---
